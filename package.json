@@ -1,0 +1,84 @@
+{
+  "name": "check-github-actions-node-version",
+  "version": "1.0.0",
+  "description": "Check your github actions are using an older version of node.",
+  "license": "MIT",
+  "author": "kyo-ago",
+  "homepage": "https://github.com/kyo-ago/check-github-actions-node-version#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyo-ago/check-github-actions-node-version.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kyo-ago/check-github-actions-node-version/issues"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./module/index.d.ts",
+        "default": "./module/index.js"
+      },
+      "default": "./module/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./module/index.js",
+  "module": "module/index.js",
+  "bin": {
+    "check-github-actions-node-version": "bin/cmd.js"
+  },
+  "files": [
+    "bin/",
+    "module/",
+    "src/"
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "ci:release": "npm publish --yes",
+    "clean": "tsc --build --clean",
+    "prepare": "git config --local core.hooksPath .githooks",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\" && prettier-package-json --write",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "node ./bin/cmd.js \".github/**/*.yml\"",
+    "watch": "tsc --build --watch"
+  },
+  "sideEffects": false,
+  "types": "./module/index.d.ts",
+  "dependencies": {
+    "globby": "^13.1.3",
+    "meow": "^11.0.0",
+    "node-fetch": "^3.3.0",
+    "yaml": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.2",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "prettier-package-json": "^2.8.0",
+    "typescript": "^4.9.5"
+  },
+  "keywords": [
+    "actions",
+    "cli",
+    "github",
+    "tool"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write"
+    ],
+    "package.json": [
+      "prettier-package-json --write",
+      "git add"
+    ]
+  },
+  "packageManager": "yarn@1.22.19"
+}
